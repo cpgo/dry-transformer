@@ -153,7 +153,8 @@ module Dry
       # @api public
       def self.rename_keys(source_hash, mapping)
         Hash[source_hash].tap do |hash|
-          mapping.each { |k, v| hash[v] = hash.delete(k) if hash.key?(k) }
+          # mapping.each { |k, v| hash[v] = hash.delete(k) if hash.key?(k) }
+          mapping.fn.call.each { |k, v| hash[v] = hash.delete(k) if hash.key?(k) }
         end
       end
 
